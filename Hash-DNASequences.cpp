@@ -1,55 +1,59 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
+#include <iostream> 
+#include <vector> 
+#include <string> 
+#include <unordered_map> 
 
 using namespace std;
 
 class Solution {
 public:
-    // Función para encontrar todas las secuencias de 10 letras que se repiten en la cadena dada
     vector<string> findRepeatedDnaSequences(string s) {
-        vector<string> result; // Vector para almacenar las secuencias repetidas
+        // Creamos un vector para almacenar las secuencias repetidas encontradas
+        vector<string> ans;
 
-        // Si la longitud de la cadena es menor que 10, no puede haber secuencias de 10 letras repetidas
-        if (s.size() < 10) {
-            return result;
+        // Si la longitud de la cadena es menor que 10, no podemos encontrar secuencias de 10 caracteres, así que retornamos el vector vacío
+        if(s.size() < 10) {
+            return ans;
         }
 
-        unordered_map<string, int> sequenceCount; // Mapa para contar las ocurrencias de cada secuencia de 10 letras
+        // Creamos un mapa para contar cuántas veces aparece cada secuencia de 10 caracteres
+        unordered_map<string, int> mp;
 
-        // Itera sobre la cadena para extraer todas las secuencias de 10 letras
-        for (int i = 0; i <= s.size() - 10; i++) {
-            string sequence = s.substr(i, 10); // Extrae la secuencia de 10 letras a partir del índice i
-            sequenceCount[sequence]++; // Incrementa el contador para esta secuencia en el mapa
+        // Recorremos la cadena buscando todas las secuencias de 10 caracteres
+        for(int i = 0; i <= s.size() - 10; i++) {
+            // Extraemos la secuencia de 10 caracteres a partir de la posición i
+            string str = s.substr(i, 10);
+            // Aumentamos el contador de la secuencia en el mapa
+            mp[str]++;
         }
 
-        // Recorre el mapa para encontrar las secuencias que se repiten más de una vez
-        for (auto it : sequenceCount) {
-            if (it.second > 1) { // Si la secuencia aparece más de una vez
-                result.push_back(it.first); // Añade la secuencia repetida al resultado
+        // Recorremos el mapa para encontrar las secuencias que aparecen más de una vez
+        for(auto it : mp) {
+            if(it.second > 1) {
+                // Añadimos las secuencias repetidas al vector de resultados
+                ans.push_back(it.first);
             }
         }
         
-        return result; // Devuelve el vector de secuencias repetidas
+        // Retornamos el vector con las secuencias repetidas
+        return ans;
     }
 };
 
 int main() {
-    // Crea una instancia de la clase Solution
-    Solution solution;
+    // Crear una instancia de la clase Solution
+    Solution sol;
 
-    // Define una cadena de ejemplo
-    string example = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
+    // Definir una cadena de prueba
+    string s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT";
 
-    // Llama a la función y almacena el resultado
-    vector<string> repeatedSequences = solution.findRepeatedDnaSequences(example);
+    // Llamar al método findRepeatedDnaSequences
+    vector<string> result = sol.findRepeatedDnaSequences(s);
 
-    // Imprime las secuencias repetidas
-    cout << "Repeated DNA sequences are: ";
-    for (const string& seq : repeatedSequences) {
-        cout << seq << " ";
+    // Imprimir las secuencias repetidas encontradas
+    for(const string& seq : result) {
+        cout << seq << endl;
     }
-    cout << endl;
 
-    return 0; // Fin del programa
+    return 0;
 }
