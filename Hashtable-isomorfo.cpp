@@ -1,6 +1,6 @@
 #include <iostream>
 #include <unordered_map>
-#include <algorithm> // Para usar find_if
+#include <algorithm>
 
 using namespace std;
 
